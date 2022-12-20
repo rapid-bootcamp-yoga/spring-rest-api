@@ -1,39 +1,28 @@
 package com.rapidtect.springrestapi.controller;
 
-
-import com.rapidtect.springrestapi.model.ProductModel;
+import com.rapidtect.springrestapi.model.CategoryModel;
 import com.rapidtect.springrestapi.model.ResponseModel;
-import com.rapidtect.springrestapi.service.ProductService;
+import com.rapidtect.springrestapi.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/product")
-public class ProductController {
-
-//    @GetMapping
-//    public List<ProductModel> get() {
-//        return Arrays.asList(
-//                new ProductModel(1, "Susu Beruang", 8900.0),
-//                new ProductModel(2, "Indomie", 2900.0),
-//                new ProductModel(3, "Bakso", 25000.0)
-//        );
-//    }
-    private ProductService service;
+@RequestMapping("/categories")
+public class CategoryController {
+    private CategoryService service;
 
     @Autowired
-    public ProductController(ProductService service) {
+    public CategoryController(CategoryService service) {
         this.service = service;
     }
 
     @GetMapping
     public ResponseEntity<Object> get(){
-        List<ProductModel> result = service.getAll();
+        List<CategoryModel> result = service.getAll();
         return ResponseEntity.ok().body(
                 new ResponseModel(200,"SUCCESS", result)
         );
@@ -41,23 +30,23 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getById(@PathVariable("id") Integer id){
-        Optional<ProductModel> result = service.getById(id);
+        Optional<CategoryModel> result = service.getById(id);
         return ResponseEntity.ok().body(
                 new ResponseModel(200,"SUCCESS", result)
         );
     }
 
     @PostMapping()
-    public ResponseEntity<Object> saveProduct(@RequestBody ProductModel request){
-        Optional<ProductModel> result = service.save(request);
+    public ResponseEntity<Object> saveCategory(@RequestBody CategoryModel request){
+        Optional<CategoryModel> result = service.save(request);
         return ResponseEntity.ok().body(
                 new ResponseModel(200,"SUCCESS", result)
         );
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Object> updateProduct(@PathVariable("id") Integer id, @RequestBody ProductModel request){
-        Optional<ProductModel> result = service.update(id, request);
+    public ResponseEntity<Object> updateCategory(@PathVariable("id") Integer id, @RequestBody CategoryModel request){
+        Optional<CategoryModel> result = service.update(id, request);
         return ResponseEntity.ok().body(
                 new ResponseModel(200,"SUCCESS", result)
         );
@@ -65,10 +54,9 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable("id") Integer id){
-        Optional<ProductModel> result = service.delete(id);
+        Optional<CategoryModel> result = service.delete(id);
         return ResponseEntity.ok().body(
                 new ResponseModel(200,"SUCCESS", result)
         );
     }
-
 }
