@@ -17,8 +17,11 @@ import java.util.Set;
 @Table(name = "customer_tab")
 public class CustomerEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    @TableGenerator(name = "customer_id_generator", table = "sequence_tab",
+            pkColumnName = "gen_name", valueColumnName = "gen_value",
+            pkColumnValue="customer_id", initialValue=0, allocationSize=0)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "customer_id_generator")
+    private Integer id;
     @Column(name = "customer_name", length = 200, nullable = false)
     private String fullName;
     @Column(name = "customer_address", nullable = false)
@@ -33,7 +36,7 @@ public class CustomerEntity {
     private String dateOfPlace;
 
     @Column(name = "product_id",nullable = false )
-    private int productId;
+    private Integer productId;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", insertable = false, updatable = false)
     private Set<ProductEntity> products = new HashSet<>();

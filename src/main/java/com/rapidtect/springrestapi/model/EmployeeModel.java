@@ -1,6 +1,6 @@
 package com.rapidtect.springrestapi.model;
 
-import com.rapidtect.springrestapi.entity.CustomerEntity;
+import com.rapidtect.springrestapi.entity.EmployeeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,21 +8,22 @@ import org.springframework.beans.BeanUtils;
 
 import java.util.Date;
 
-@Data
 @AllArgsConstructor
+@Data
 @NoArgsConstructor
-public class CustomerModel {
-    private Integer id;
-    private String fullName;
+public class EmployeeModel {
+    private Long id;
+    private String employeeName;
     private String address;
-    private String city;
     private String gender;
     private Date dateOfBirth;
-    private String dateOfPlace;
-
-    public CustomerModel(CustomerEntity entity){
-//        this.id = entity.getId();
-//        this.fullName = entity.getFullName();
+    private String placeOfBirth;
+    private String city;
+    private String country;
+    private String postalCode;
+    private String notes;
+    public EmployeeModel (EmployeeEntity entity) {
         BeanUtils.copyProperties(entity, this);
     }
+
 }

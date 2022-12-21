@@ -1,6 +1,7 @@
 package com.rapidtect.springrestapi.entity;
 
 import com.rapidtect.springrestapi.model.ProductModel;
+import com.rapidtect.springrestapi.model.PurchaseOrderDetailModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Generated;
@@ -18,7 +19,10 @@ import java.util.Set;
 @AllArgsConstructor
 public class ProductEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @TableGenerator(name = "product_id_generator", table = "sequence_tab",
+            pkColumnName = "gen_name", valueColumnName = "gen_value",
+            pkColumnValue="product_id", initialValue=0, allocationSize=0)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "product_id_generator")
     private Integer id;
 
     @Column(name = "product_code", length = 20, nullable = false)
@@ -31,11 +35,25 @@ public class ProductEntity {
     private Double price;
 
     @Column(name = "category_id", nullable = false)
-    private int categoryId;
+    private Integer categoryId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private CategoryEntity category;
+
+    @Column(name = "supplier_id", nullable = false)
+    private Long supplierId;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "supplier_id", insertable = false, updatable = false)
+    private SupplierEntity supplier;
+
+    @Column(name = "poDetail_id", nullable = false)
+    private Integer poDetailId;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "poDetail_id", insertable = false, updatable = false)
+    private PurchaseOrderDetailEntity purchaseOrderDetail;
 
     @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
     private Set<CustomerEntity> customers = new HashSet<>();

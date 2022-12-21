@@ -1,6 +1,7 @@
 package com.rapidtect.springrestapi.model;
 
 import com.rapidtect.springrestapi.entity.CustomerEntity;
+import com.rapidtect.springrestapi.entity.PurchaseOrderEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,21 +9,17 @@ import org.springframework.beans.BeanUtils;
 
 import java.util.Date;
 
-@Data
 @AllArgsConstructor
+@Data
 @NoArgsConstructor
-public class CustomerModel {
+public class PurchaseOrderModel {
     private Integer id;
-    private String fullName;
-    private String address;
-    private String city;
-    private String gender;
-    private Date dateOfBirth;
-    private String dateOfPlace;
-
-    public CustomerModel(CustomerEntity entity){
-//        this.id = entity.getId();
-//        this.fullName = entity.getFullName();
+    private String poCode;
+    private Integer customerId;
+    private CustomerEntity customer;
+    private Date poDate;
+    private Double totalAmount;
+    public PurchaseOrderModel(PurchaseOrderEntity entity) {
         BeanUtils.copyProperties(entity, this);
     }
 }
