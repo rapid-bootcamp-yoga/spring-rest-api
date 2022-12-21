@@ -7,8 +7,8 @@ import java.util.Optional;
 
 public interface PurchaseOrderService {
     List<PurchaseOrderModel> getAll();
-    Optional<PurchaseOrderModel> getById(Integer id);
+    Optional<PurchaseOrderModel> getById(Long id);
     Optional<PurchaseOrderModel> save(PurchaseOrderModel model);
-    Optional<PurchaseOrderModel> update(Integer id, PurchaseOrderModel model);
-    Optional<PurchaseOrderModel> delete(Integer id);
+    Optional<PurchaseOrderModel> update(Long id, PurchaseOrderModel model);
+    Optional<PurchaseOrderModel> delete(Long id);
 }

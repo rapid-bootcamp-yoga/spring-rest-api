@@ -13,7 +13,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class PurchaseOrderModel {
-    private Integer id;
+    private Long id;
     private String poCode;
     private Integer customerId;
     private CustomerEntity customer;

@@ -1,9 +1,9 @@
 package com.rapidtect.springrestapi.service.Impl;
 
-import com.rapidtect.springrestapi.entity.CategoryEntity;
-import com.rapidtect.springrestapi.model.CategoryModel;
-import com.rapidtect.springrestapi.repository.CategoryRepo;
-import com.rapidtect.springrestapi.service.CategoryService;
+import com.rapidtect.springrestapi.entity.ShipperEntity;
+import com.rapidtect.springrestapi.model.ShipperModel;
+import com.rapidtect.springrestapi.repository.ShipperRepo;
+import com.rapidtect.springrestapi.service.ShipperService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,40 +13,40 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Slf4j
 @Service
-public class CategoryServiceImpl implements CategoryService {
-    private CategoryRepo repo;
+@Slf4j
+public class ShipperServiceImpl implements ShipperService {
+    private ShipperRepo repo;
 
     @Autowired
-    public CategoryServiceImpl(CategoryRepo repo) {
+    public ShipperServiceImpl(ShipperRepo repo) {
         this.repo = repo;
     }
 
     @Override
-    public List<CategoryModel> getAll() {
-        return this.repo.findAll().stream().map(CategoryModel::new)
+    public List<ShipperModel> getAll() {
+        return this.repo.findAll().stream().map(ShipperModel::new)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<CategoryModel> getById(Long id) {
+    public Optional<ShipperModel> getById(Long id) {
         if(id == 0) {
             return Optional.empty();
         }
-        Optional<CategoryEntity> result = this.repo.findById(id);
-        return result.map(CategoryModel::new);
+        Optional<ShipperEntity> result = this.repo.findById(id);
+        return result.map(ShipperModel::new);
     }
 
     @Override
-    public Optional<CategoryModel> save(CategoryModel model) {
+    public Optional<ShipperModel> save(ShipperModel model) {
         if(model == null) {
             return Optional.empty();
         }
-        CategoryEntity entity = new CategoryEntity(model);
+        ShipperEntity entity = new ShipperEntity(model);
         try {
             this.repo.save(entity);
-            return Optional.of(new CategoryModel(entity));
+            return Optional.of(new ShipperModel(entity));
         }catch (Exception e){
             log.error("Category save is failed, error: {}", e.getMessage());
             return Optional.empty();
@@ -54,12 +54,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Optional<CategoryModel> update(Long id, CategoryModel model) {
+    public Optional<ShipperModel> update(Long id, ShipperModel model) {
         if(id == 0) {
             return Optional.empty();
         }
 
-        CategoryEntity result = this.repo.findById(id).orElse(null);
+        ShipperEntity result = this.repo.findById(id).orElse(null);
         if(result == null){
             return Optional.empty();
         }
@@ -68,7 +68,7 @@ public class CategoryServiceImpl implements CategoryService {
         BeanUtils.copyProperties(model, result);
         try {
             this.repo.save(result);
-            return Optional.of(new CategoryModel(result));
+            return Optional.of(new ShipperModel(result));
         }catch (Exception e){
             log.error("Category update is failed, error: {}", e.getMessage());
             return Optional.empty();
@@ -76,19 +76,19 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Optional<CategoryModel> delete(Long id) {
+    public Optional<ShipperModel> delete(Long id) {
         if(id == 0) {
             return Optional.empty();
         }
 
-        CategoryEntity result = this.repo.findById(id).orElse(null);
+        ShipperEntity result = this.repo.findById(id).orElse(null);
         if(result == null){
             return Optional.empty();
         }
 
         try {
             this.repo.delete(result);
-            return Optional.of(new CategoryModel(result));
+            return Optional.of(new ShipperModel(result));
         }catch (Exception e){
             log.error("Category delete is failed, error: {}", e.getMessage());
             return Optional.empty();

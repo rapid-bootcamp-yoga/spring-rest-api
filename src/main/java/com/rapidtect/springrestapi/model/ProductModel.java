@@ -10,7 +10,7 @@ import org.springframework.beans.BeanUtils;
 @Data
 @NoArgsConstructor
 public class ProductModel {
-    private Integer id;
+    private Long id;
     private String code;
     private String name;
     private Double price;
@@ -30,7 +30,7 @@ public class ProductModel {
         }
     }
 
-    public ProductModel(int id, String name, Double price) {
+    public ProductModel(Long id, String name, Double price) {
         this.id = id;
         this.name = name;
         this.price = price;

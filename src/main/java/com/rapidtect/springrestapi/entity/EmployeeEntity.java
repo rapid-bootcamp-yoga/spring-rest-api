@@ -1,8 +1,10 @@
 package com.rapidtect.springrestapi.entity;
 
+import com.rapidtect.springrestapi.model.EmployeeModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,7 +18,7 @@ import java.util.Set;
 @Table(name = "employee_tab")
 public class EmployeeEntity {
     @Id
-    @TableGenerator(name = "employee_id_generator", table = "sequence_tab",
+    @TableGenerator(name = "employee_id_generator", table = "employee_tab",
             pkColumnName = "gen_name", valueColumnName = "gen_value",
             pkColumnValue="employee_id", initialValue=0, allocationSize=0)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "employee_id_generator")
@@ -49,5 +51,11 @@ public class EmployeeEntity {
     @Column(name = "notes", length = 250)
     private String notes;
 
+    @OneToMany(mappedBy = "employee")
+    private Set<PurchaseOrderEntity> purchaseOrder = new HashSet<>();
 
+
+    public EmployeeEntity(EmployeeModel model) {
+        BeanUtils.copyProperties(model, this);
+    }
 }

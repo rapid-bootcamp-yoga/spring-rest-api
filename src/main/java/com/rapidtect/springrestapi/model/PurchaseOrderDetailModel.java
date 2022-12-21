@@ -12,7 +12,7 @@ import org.springframework.beans.BeanUtils;
 @Data
 @NoArgsConstructor
 public class PurchaseOrderDetailModel {
-    private Integer id;
+    private Long id;
     private Double quantity;
     private Double price;
     private Double subAmount;

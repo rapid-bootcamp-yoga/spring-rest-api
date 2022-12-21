@@ -4,6 +4,7 @@ import com.rapidtect.springrestapi.model.SupplierModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -17,7 +18,7 @@ import java.util.Set;
 @Table(name = "supplier_tab")
 public class SupplierEntity {
     @Id
-    @TableGenerator(name = "supplier_id_generator", table = "sequence_tab",
+    @TableGenerator(name = "supplier_id_generator", table = "supplier_tab",
             pkColumnName = "gen_name", valueColumnName = "gen_value",
             pkColumnValue="supplier_id", initialValue=0, allocationSize=0)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "supplier_id_generator")
@@ -47,5 +48,6 @@ public class SupplierEntity {
     private Set<ProductEntity> products = new HashSet<>();
 
     public SupplierEntity(SupplierModel model) {
+        BeanUtils.copyProperties(model, this);
     }
 }

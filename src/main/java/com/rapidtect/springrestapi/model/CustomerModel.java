@@ -12,7 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerModel {
-    private Integer id;
+    private Long id;
     private String fullName;
     private String address;
     private String city;

@@ -19,11 +19,11 @@ import java.util.Set;
 @AllArgsConstructor
 public class ProductEntity {
     @Id
-    @TableGenerator(name = "product_id_generator", table = "sequence_tab",
+    @TableGenerator(name = "product_id_generator", table = "product_tab",
             pkColumnName = "gen_name", valueColumnName = "gen_value",
             pkColumnValue="product_id", initialValue=0, allocationSize=0)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "product_id_generator")
-    private Integer id;
+    private Long id;
 
     @Column(name = "product_code", length = 20, nullable = false)
     private String code;
@@ -34,12 +34,14 @@ public class ProductEntity {
     @Column(name = "product_price")
     private Double price;
 
+
     @Column(name = "category_id", nullable = false)
     private Integer categoryId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private CategoryEntity category;
+
 
     @Column(name = "supplier_id", nullable = false)
     private Long supplierId;
@@ -48,19 +50,20 @@ public class ProductEntity {
     @JoinColumn(name = "supplier_id", insertable = false, updatable = false)
     private SupplierEntity supplier;
 
+
     @Column(name = "po_detail_id", nullable = false)
-    private Integer poDetailId;
+    private Integer poDetail;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "po_detail_id", insertable = false, updatable = false)
     private PurchaseOrderDetailEntity purchaseOrderDetail;
+
 
     @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
     private Set<CustomerEntity> customers = new HashSet<>();
 
     public ProductEntity(ProductModel model) {
         BeanUtils.copyProperties(model, this);
-
         /*
         this.code = model.getCode();
         this.name = model.getName();
