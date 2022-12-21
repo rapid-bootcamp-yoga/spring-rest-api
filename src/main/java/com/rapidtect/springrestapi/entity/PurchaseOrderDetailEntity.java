@@ -18,7 +18,7 @@ public class PurchaseOrderDetailEntity {
     @Id
     @TableGenerator(name = "po_detail_id_generator", table = "sequence_tab",
             pkColumnName = "gen_name", valueColumnName = "gen_value",
-            pkColumnValue="product_id", initialValue=0, allocationSize=0)
+            pkColumnValue="po_detail_id", initialValue=0, allocationSize=0)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "po_detail_id_generator")
     private Integer id;
 

@@ -41,6 +41,12 @@ public class CustomerEntity {
     @JoinColumn(name = "product_id", insertable = false, updatable = false)
     private Set<ProductEntity> products = new HashSet<>();
 
+//    @OneToMany(mappedBy = "category")
+//    private Set<ProductEntity> products = new HashSet<>();
+
+    @OneToMany(mappedBy = "customer")
+    private  Set<PurchaseOrderEntity> purchaseOrder = new HashSet<>();
+
     public CustomerEntity(CustomerModel model) {
     }
 }

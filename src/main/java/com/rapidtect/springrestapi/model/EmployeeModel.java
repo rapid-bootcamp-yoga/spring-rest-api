@@ -22,7 +22,7 @@ public class EmployeeModel {
     private String country;
     private String postalCode;
     private String notes;
-    public EmployeeModel (EmployeeEntity entity) {
+    public EmployeeModel(EmployeeEntity entity) {
         BeanUtils.copyProperties(entity, this);
     }
 

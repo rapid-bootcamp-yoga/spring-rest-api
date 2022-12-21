@@ -48,11 +48,11 @@ public class ProductEntity {
     @JoinColumn(name = "supplier_id", insertable = false, updatable = false)
     private SupplierEntity supplier;
 
-    @Column(name = "poDetail_id", nullable = false)
+    @Column(name = "po_detail_id", nullable = false)
     private Integer poDetailId;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "poDetail_id", insertable = false, updatable = false)
+    @JoinColumn(name = "po_detail_id", insertable = false, updatable = false)
     private PurchaseOrderDetailEntity purchaseOrderDetail;
 
     @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)

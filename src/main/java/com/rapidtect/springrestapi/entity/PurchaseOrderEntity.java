@@ -18,7 +18,7 @@ public class PurchaseOrderEntity {
     @Id
     @TableGenerator(name = "po_id_generator", table = "sequence_tab",
             pkColumnName = "gen_name", valueColumnName = "gen_value",
-            pkColumnValue="product_id", initialValue=0, allocationSize=0)
+            pkColumnValue="po_id", initialValue=0, allocationSize=0)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "po_id_generator")
     private Integer id;
 
@@ -28,8 +28,8 @@ public class PurchaseOrderEntity {
     @Column(name = "customer_id", nullable = false)
     private Integer customerId;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id", insertable = false, updatable = false)
     private CustomerEntity customer;
 
     @Column(name = "employee_id", nullable = false)
@@ -44,4 +44,6 @@ public class PurchaseOrderEntity {
 
     @Column(name = "total_amount", nullable = false)
     private Double totalAmount;
+
+
 }
