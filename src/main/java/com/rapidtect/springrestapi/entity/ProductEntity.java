@@ -19,7 +19,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class ProductEntity {
     @Id
-    @TableGenerator(name = "product_id_generator", table = "product_tab",
+    @TableGenerator(name = "product_id_generator", table = "sequence_tab",
             pkColumnName = "gen_name", valueColumnName = "gen_value",
             pkColumnValue="product_id", initialValue=0, allocationSize=0)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "product_id_generator")

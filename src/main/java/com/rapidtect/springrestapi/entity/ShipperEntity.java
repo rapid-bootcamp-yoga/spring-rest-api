@@ -17,7 +17,7 @@ import java.util.Set;
 @Table(name = "shipper_tab")
 public class ShipperEntity {
     @Id
-    @TableGenerator(name = "shipper_id_generator", table = "shipper_tab",
+    @TableGenerator(name = "shipper_id_generator", table = "sequence_tab",
             pkColumnName = "gen_name", valueColumnName = "gen_value",
             pkColumnValue="shipper_id", initialValue=0, allocationSize=0)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "shipper_id_generator")

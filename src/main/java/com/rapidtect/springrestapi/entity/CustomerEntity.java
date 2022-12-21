@@ -18,7 +18,7 @@ import java.util.Set;
 @Table(name = "customer_tab")
 public class CustomerEntity {
     @Id
-    @TableGenerator(name = "customer_id_generator", table = "customer_tab",
+    @TableGenerator(name = "customer_id_generator", table = "sequence_tab",
             pkColumnName = "gen_name", valueColumnName = "gen_value",
             pkColumnValue="customer_id", initialValue=0, allocationSize=0)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "customer_id_generator")

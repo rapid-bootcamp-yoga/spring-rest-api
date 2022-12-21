@@ -13,9 +13,10 @@ import org.springframework.beans.BeanUtils;
 @NoArgsConstructor
 public class PurchaseOrderDetailModel {
     private Long id;
+    private Long poId;
+    private Long productId;
     private Double quantity;
     private Double price;
-    private Double subAmount;
 
     public PurchaseOrderDetailModel(PurchaseOrderDetailEntity entity) {
         BeanUtils.copyProperties(entity, this);

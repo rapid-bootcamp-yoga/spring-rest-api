@@ -19,7 +19,7 @@ import java.util.Set;
 
 public class PurchaseOrderEntity {
     @Id
-    @TableGenerator(name = "po_id_generator", table = "po_tab",
+    @TableGenerator(name = "po_id_generator", table = "sequence_tab",
             pkColumnName = "gen_name", valueColumnName = "gen_value",
             pkColumnValue="po_id", initialValue=0, allocationSize=0)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "po_id_generator")
@@ -51,6 +51,10 @@ public class PurchaseOrderEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shipper_id", insertable = false, updatable = false)
     private ShipperEntity shipper;
+
+
+    @OneToMany(mappedBy = "po")
+    private Set<PurchaseOrderDetailEntity> poDetail = new HashSet<>();
 
 
     @Temporal(TemporalType.DATE)

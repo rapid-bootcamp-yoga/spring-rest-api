@@ -30,7 +30,7 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getById(@PathVariable("id") Integer id){
+    public ResponseEntity<Object> getById(@PathVariable("id") Long id){
         Optional<CustomerModel> result = service.getById(id);
         return ResponseEntity.ok().body(
                 new ResponseModel(200,"SUCCESS", result)
@@ -46,7 +46,7 @@ public class CustomerController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Object> updateProduct(@PathVariable("id") Integer id, @RequestBody CustomerModel request){
+    public ResponseEntity<Object> updateProduct(@PathVariable("id") Long id, @RequestBody CustomerModel request){
         Optional<CustomerModel> result = service.update(id, request);
         return ResponseEntity.ok().body(
                 new ResponseModel(200,"SUCCESS", result)
@@ -54,7 +54,7 @@ public class CustomerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable("id") Integer id){
+    public ResponseEntity<Object> delete(@PathVariable("id") Long id){
         Optional<CustomerModel> result = service.delete(id);
         return ResponseEntity.ok().body(
                 new ResponseModel(200,"SUCCESS", result)

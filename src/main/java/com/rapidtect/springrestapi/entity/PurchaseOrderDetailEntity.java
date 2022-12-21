@@ -18,14 +18,18 @@ import java.util.Set;
 @Table(name = "po_detail_tab")
 public class PurchaseOrderDetailEntity {
     @Id
-    @TableGenerator(name = "po_detail_id_generator", table = "po_detail_tab",
+    @TableGenerator(name = "po_detail_id_generator", table = "sequence_tab",
             pkColumnName = "gen_name", valueColumnName = "gen_value",
             pkColumnValue="po_detail_id", initialValue=0, allocationSize=0)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "po_detail_id_generator")
     private Long id;
 
-    @Column(name = "po_id")
+    @Column(name = "po_id", nullable = false)
     private Long poId;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "po_id", insertable = false, updatable = false)
+    private PurchaseOrderEntity po;
 
 
     @Column(name = "product_id", nullable = false)

@@ -6,8 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @Data
@@ -15,11 +19,12 @@ import java.util.Date;
 public class PurchaseOrderModel {
     private Long id;
     private String poCode;
-    private Integer customerId;
-    private CustomerEntity customer;
+    private Long customerId;
+    private Long employeeId;
+    private Long shipperId;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date poDate;
     private Double totalAmount;
-    public PurchaseOrderModel(PurchaseOrderEntity entity) {
-        BeanUtils.copyProperties(entity, this);
-    }
+    private List<PurchaseOrderDetailModel> details;
 }
