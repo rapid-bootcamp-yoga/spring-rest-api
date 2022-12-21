@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -34,6 +36,9 @@ public class ProductEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private CategoryEntity category;
+
+    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
+    private Set<CustomerEntity> customers = new HashSet<>();
 
     public ProductEntity(ProductModel model) {
         BeanUtils.copyProperties(model, this);

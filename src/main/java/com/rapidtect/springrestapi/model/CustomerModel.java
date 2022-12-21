@@ -1,8 +1,10 @@
 package com.rapidtect.springrestapi.model;
 
+import com.rapidtect.springrestapi.entity.CustomerEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 import java.util.Date;
 
@@ -17,4 +19,10 @@ public class CustomerModel {
     private String gender;
     private Date dateOfBirth;
     private String dateOfPlace;
+
+    public CustomerModel(CustomerEntity entity){
+//        this.id = entity.getId();
+//        this.fullName = entity.getFullName();
+        BeanUtils.copyProperties(entity, this);
+    }
 }
