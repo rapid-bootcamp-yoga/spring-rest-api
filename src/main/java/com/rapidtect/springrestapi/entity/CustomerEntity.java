@@ -37,7 +37,7 @@ public class CustomerEntity {
     private String dateOfPlace;
 
     @Column(name = "product_id",nullable = false )
-    private Integer productId;
+    private Long productId;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", insertable = false, updatable = false)
     private Set<ProductEntity> products = new HashSet<>();

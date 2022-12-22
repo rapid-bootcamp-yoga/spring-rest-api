@@ -36,13 +36,14 @@ public class ProductServiceImpl implements ProductService {
             return Optional.empty();
         }
         Optional<ProductEntity> result = this.repo.findById(id);
+
+        return result.map(ProductModel::new);
         /*
         if(result.isEmpty()){
             return Optional.empty();
         }
         return Optional.of(new ProductModel(result.get()));
          */
-        return result.map(ProductModel::new);
     }
 
     @Override

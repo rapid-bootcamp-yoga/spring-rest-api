@@ -10,13 +10,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
-public class PurchaseOrderModel {
+public class PurchaseOrderModel implements Serializable {
     private Long id;
     private String poCode;
     private Long customerId;

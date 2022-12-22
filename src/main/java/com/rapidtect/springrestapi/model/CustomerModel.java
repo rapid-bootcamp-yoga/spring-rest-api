@@ -5,7 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
 @Data
@@ -17,6 +20,8 @@ public class CustomerModel {
     private String address;
     private String city;
     private String gender;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
     private String dateOfPlace;
 

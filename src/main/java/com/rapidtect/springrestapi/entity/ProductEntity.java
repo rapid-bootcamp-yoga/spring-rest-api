@@ -22,6 +22,7 @@ public class ProductEntity {
     @TableGenerator(name = "product_id_generator", table = "sequence_tab",
             pkColumnName = "gen_name", valueColumnName = "gen_value",
             pkColumnValue="product_id", initialValue=0, allocationSize=0)
+
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "product_id_generator")
     private Long id;
 
@@ -36,7 +37,7 @@ public class ProductEntity {
 
 
     @Column(name = "category_id", nullable = false)
-    private Integer categoryId;
+    private Long categoryId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
@@ -64,7 +65,7 @@ public class ProductEntity {
 
     public ProductEntity(ProductModel model) {
         BeanUtils.copyProperties(model, this);
-        /*
+        /* referensi dari
         this.code = model.getCode();
         this.name = model.getName();
         this.price = model.getPrice();
