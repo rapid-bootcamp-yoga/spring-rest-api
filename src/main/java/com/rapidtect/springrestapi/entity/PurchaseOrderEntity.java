@@ -1,5 +1,6 @@
 package com.rapidtect.springrestapi.entity;
 
+import com.rapidtect.springrestapi.model.PurchaseOrderDetailModel;
 import com.rapidtect.springrestapi.model.PurchaseOrderModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -53,9 +55,8 @@ public class PurchaseOrderEntity {
     private ShipperEntity shipper;
 
 
-    @OneToMany(mappedBy = "po")
+    @OneToMany(mappedBy = "po", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<PurchaseOrderDetailEntity> poDetail = new HashSet<>();
-
 
     @Temporal(TemporalType.DATE)
     @Column(name = "po_date", nullable = false)
@@ -64,7 +65,27 @@ public class PurchaseOrderEntity {
     @Column(name = "total_amount", nullable = false)
     private Double totalAmount;
 
+//    public PurchaseOrderEntity(PurchaseOrderModel model) {
+//        BeanUtils.copyProperties(model, this);
+//    }
+
     public PurchaseOrderEntity(PurchaseOrderModel model) {
-        BeanUtils.copyProperties(model, this);
+        this.poCode = model.getPoCode();
+        this.customerId = model.getCustomerId();
+        this.employeeId = model.getEmployeeId();
+        this.shipperId = model.getShipperId();
+        this.poDate = model.getPoDate();
+    }
+
+    public void addDetail(PurchaseOrderDetailEntity detailEntity){
+        this.poDetail.add(detailEntity);
+        detailEntity.setPo(this);
+    }
+
+    public void addDetailList(List<PurchaseOrderDetailModel> details){
+        for(PurchaseOrderDetailModel item: details){
+            PurchaseOrderDetailEntity detailEntity = new PurchaseOrderDetailEntity(item);
+            addDetail(detailEntity);
+        }
     }
 }

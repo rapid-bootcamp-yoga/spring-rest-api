@@ -28,6 +28,7 @@ public class ProductServiceImpl implements ProductService {
         return this.repo.findAll().stream().map(ProductModel::new)
                 .collect(Collectors.toList());
     }
+    //map(ProductModel::new) sama dengan map(item -> new ProductModel(item))
 
     @Override
     public Optional<ProductModel> getById(Long id) {
