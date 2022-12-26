@@ -8,10 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @AllArgsConstructor
@@ -56,7 +53,7 @@ public class PurchaseOrderEntity {
 
 
     @OneToMany(mappedBy = "po", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<PurchaseOrderDetailEntity> poDetail = new HashSet<>();
+    private List<PurchaseOrderDetailEntity> poDetail = new ArrayList<>();
 
     @Temporal(TemporalType.DATE)
     @Column(name = "po_date", nullable = false)
@@ -65,17 +62,17 @@ public class PurchaseOrderEntity {
     @Column(name = "total_amount", nullable = false)
     private Double totalAmount;
 
-//    public PurchaseOrderEntity(PurchaseOrderModel model) {
-//        BeanUtils.copyProperties(model, this);
-//    }
-
     public PurchaseOrderEntity(PurchaseOrderModel model) {
-        this.poCode = model.getPoCode();
-        this.customerId = model.getCustomerId();
-        this.employeeId = model.getEmployeeId();
-        this.shipperId = model.getShipperId();
-        this.poDate = model.getPoDate();
+        BeanUtils.copyProperties(model, this);
     }
+
+//    public PurchaseOrderEntity(PurchaseOrderModel model) {
+//        this.poCode = model.getPoCode();
+//        this.customerId = model.getCustomerId();
+//        this.employeeId = model.getEmployeeId();
+//        this.shipperId = model.getShipperId();
+//        this.poDate = model.getPoDate();
+//    }
 
     public void addDetail(PurchaseOrderDetailEntity detailEntity){
         this.poDetail.add(detailEntity);

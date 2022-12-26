@@ -47,10 +47,6 @@ public class PurchaseOrderDetailEntity {
     @Column(name = "sub_amount", nullable = false)
     private Double subAmount;
 
-//    public PurchaseOrderDetailEntity(PurchaseOrderDetailModel model) {
-//        BeanUtils.copyProperties(model, this);
-//    }
-
     public PurchaseOrderDetailEntity(PurchaseOrderDetailModel model) {
         this.productId = model.getProductId();
         this.quantity = model.getQuantity();
