@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static javafx.beans.binding.Bindings.when;
+import static net.bytebuddy.matcher.ElementMatchers.any;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
@@ -56,18 +58,24 @@ class PurchaseOrderServiceImplTest {
                 new PurchaseOrderDetailModel(2L, 03L, 02L, 200.00, 29600.00 ),
                 new PurchaseOrderDetailModel(3L, 04L, 02L, 400.00, 19600.00 )
         );
-
         // persiapan data request
-        PurchaseOrderModel poModel = new PurchaseOrderModel(1L, "2kPoJZ", 20023300L,
-                                                            3001L,
-                                                            240L, new Date(),
-                                                            3500000.00, poDetailsModels);
+        PurchaseOrderModel poModel = new PurchaseOrderModel(1L, "Po2kJZ", 20023300L, 3001L,
+                                                        240L, new Date(), 3500000.00, poDetailsModels);
 
         PurchaseOrderEntity entity = new PurchaseOrderEntity(poModel);
         List<PurchaseOrderDetailEntity> poDetailEntities = poDetailsModels.stream().map(PurchaseOrderDetailEntity::new)
                                                             .collect(Collectors.toList());
         entity.setPoDetail(poDetailEntities);
+
+        // mocking to DB/ekspektasi ke DB
+        when(this.poRepo.save(any(PurchaseOrderEntity.class))).thenReturn(entity);
+        result = this.service.save(poModel);
+        assertNotNull(result);
+        assertEquals(1L, result.get().getId());
+        assertEquals("Po2kJZ", result.get().getPoCode());
     }
+
+
 
     @Test
     void getAll() {
